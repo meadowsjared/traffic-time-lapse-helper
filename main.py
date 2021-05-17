@@ -1,43 +1,41 @@
-import os, time
-# from WebHandler import WebHandler
-# from ImageHandler import ImageHandler
+import os, time#, json
+from ImageHandler import ImageHandler
 
 ################################################################################
-# locations configuration
-ImageMagick = r'd:\files\4\programs\terminal-utilities\imagemagick\convert.exe'
-
-screenshotDir = 'screenshots'
-tempDir = 'temp'
-outputDir = 'output'
+# configuration
+screenshot_dir = 'screenshots'
+temp_dir = 'temp'
+output_dir = 'output'
+width = 1920
+height = 1080
+image_type = 'png'
+label = 'Atlanta Traffic'
 
 ################################################################################
 # screenshot/manipulation loop
 def recur(site, interval, process=True):
-wh = WebHandler(visual=False)
-ih = ImageHandler(ImageMagick, os.path.join(tempDir, 'temp.png'))
+	i = 1
+	ih = ImageHandler()
 
-print('starting process...')
-i = 1
-while(1):
-	current_time = time.localtime()
-	print('\nstarting frame at %s...' % time.strftime("%H:%M:%S", current_time))
-	filename = '%s.png' % time.strftime("%H-%M-%S", current_time)
-	path = os.path.join(screenshotDir, filename)
-	wh.screenshot(site, path)
+	print('starting process...')
+	while (1):
+		current_time = time.localtime()
+		filename = '%s.png' % time.strftime("%H-%M-%S", current_time)
+		image_path = os.path.join(screenshot_dir, filename)
+		stream = os.popen('node imageFromUrl.js \'{"url":"' + site + '","image_path":"' + image_path + '","type":"' + image_type + '","width":' + str(width) + ',"height":' + str(height) + '}\'')
+		output = stream.read()
+		# #used to read the results from imageFromUrl.js (useful for troubleshooting)
+		# ret_obj = json.loads(output)
+		# print('ret_obj', ret_obj['consoleMessages'])
 
-	# process the image if desired
-	if process:
-		hour = time.strftime("%H", current_time)
-		minute = time.strftime("%M", current_time)
-		out_file = os.path.join(outputDir, '%04d.png' % i)
-		ih.processImage(path, out_file, [hour, minute])
+		out_file = os.path.join(output_dir, '%04d.png' % i)
+		ih.process_image(label, image_path, out_file)
 		i += 1
-	time.sleep(round(60 * interval))
+		time.sleep(round(60 * interval))
 
 ################################################################################
 # program entrypoint
 if __name__ == "__main__":
-
-site = 'https://maps.google.com/maps?q=atlanta+traffic'
-interval = 15
-recur(site, interval)
+	site = 'https://www.google.com/maps/@33.7676338,-84.5606888,11z/data=!5m1!1e1'
+	interval = 15
+	recur(site, interval)
