@@ -6,8 +6,9 @@
  * @see {@link https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#screenshot}
  */
 
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const puppeteer = require('puppeteer')
+const fs = require('fs')
+const path = require('path');
 
 (async () => {
 	const args = process.argv.slice(2)
@@ -72,6 +73,11 @@ const fs = require('fs');
 	// await page.waitForFunction(() => pageLoaded === true) //wait for page to say it's loaded
 	fs.unlink(image_path, async (err) => {
 		// await page.emulateMedia('screen')
+		// create direcotry if it doesn't exist
+		const dir = path.dirname(image_path)
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir)
+		}
 		queryObj.consoleMessages = consoleMessages;
 		console.log(/*"queryObj",*/ JSON.stringify(queryObj, null, 2));
 		await page.screenshot({ path: image_path, type: queryObj.type });

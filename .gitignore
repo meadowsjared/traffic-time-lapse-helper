@@ -18,8 +18,11 @@ local.properties
 /node_modules
 /__pycache__
 /screenshots/*.png
+/screenshots/*/
 /temp/*.png
+/temp/*/
 /output/*.png
+/output/*/
 
 # External tool builders
 .externalToolBuilders/
