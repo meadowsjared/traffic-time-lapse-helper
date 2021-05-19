@@ -8,7 +8,7 @@ A script that makes creating time lapses of traffic in Google Maps easy.
 
 ## Requirements
 
-The script runs on [**Python 3.9**](http://www.python.org/getit/) and requires [**NodeJs**](https://nodejs.org/en/download/) and [**Puppeteer**](https://developers.google.com/web/tools/puppeteer).
+The script runs on [**Python 3.9**](http://www.python.org/getit/) and requires [**NodeJs**](https://nodejs.org/en/download/) and [**Puppeteer**](https://developers.google.com/web/tools/puppeteer). But as long as you have Python3, and nodejs, you can just run `npm install` to install the puppeteer dependency.
 
 ## Usage
 
