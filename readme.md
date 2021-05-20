@@ -15,6 +15,7 @@ The script runs on [**Python 3.9**](http://www.python.org/getit/) and [**Pillow*
 The URL to take a screenshot of, output directory, and interval between screenshots are all located at the top of **main.py**.
 
 Once these variables are set, run the script and it will begin placing formatted 1920x1080 frames in **/output**. Original frames are kept in **/screenshots**.
+
 lastly after you have the output, run `python3 createGifs.py` to create gifs and throw them in the **/videos** folder.
 
 note: to run it in a way that keeps it running after you logout, use nohup like this:
