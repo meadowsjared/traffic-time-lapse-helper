@@ -23,6 +23,7 @@ local.properties
 /temp/*/
 /output/*.png
 /output/*/
+/videos/*.gif
 
 # External tool builders
 .externalToolBuilders/
