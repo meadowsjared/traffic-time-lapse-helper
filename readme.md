@@ -23,6 +23,5 @@ to stop your program later, you can use:
 `ps aux | head -n 1 && ps aux | grep python3\ main.py | grep -v grep`
 to get the PID, then use the PID with the `kill <yourPID>` command to kill it using it's PID
 
-## Current Issues
-
+## New Features
   * GIF creation added
