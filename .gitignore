@@ -24,6 +24,7 @@ local.properties
 /output/*.png
 /output/*/
 /videos/*.gif
+nohup.out
 
 # External tool builders
 .externalToolBuilders/
