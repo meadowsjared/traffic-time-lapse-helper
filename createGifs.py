@@ -1,4 +1,4 @@
-import glob, os, re, time, gc
+import glob, os, re, time
 from PIL import Image
 
 # filepaths
