@@ -1,0 +1,22 @@
+{
+	"name": "traffic-time-lapse-helper",
+	"version": "1.0.0",
+	"description": "## Description",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/meadowsjared/traffic-time-lapse-helper.git"
+	},
+	"author": "Jared Meadows",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/meadowsjared/traffic-time-lapse-helper/issues"
+	},
+	"homepage": "https://github.com/meadowsjared/traffic-time-lapse-helper#readme",
+	"dependencies": {
+		"puppeteer": "^9.1.1"
+	}
+}
