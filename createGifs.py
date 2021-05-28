@@ -59,14 +59,14 @@ for item in directory_contents:
 			num_frames = 0
 			prev_files = []
 			# use a generator to split it into chunks and add the images
-			for chunk in chunk_using_generators(image_ar, 100):
+			for chunk in chunk_using_generators(image_ar, 400):
 				num_frames += len(chunk)
 				add_images(chunk, filename+str(num_frames)+fp_out, prev_files, num_frames)
 
 				#save the filename so we can remove it later once the next one gets created
 				prev_files.insert(0, filename+str(num_frames)+fp_out)
 				lastFile = filename+str(num_frames)+fp_out
-				if (num_frames > 3699): # it looks like it crashes above 3700
+				if (num_frames > 2399): # it looks like it crashes above 2400
 					break
 
 			# remove the unnecessary intermediary file
