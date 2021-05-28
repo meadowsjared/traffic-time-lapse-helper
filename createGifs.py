@@ -1,4 +1,4 @@
-import glob, os, re, time
+import glob, os, re, time, cv2
 from PIL import Image
 
 # filepaths
@@ -58,20 +58,36 @@ for item in directory_contents:
 
 			num_frames = 0
 			prev_files = []
-			# use a generator to split it into chunks and add the images
-			for chunk in chunk_using_generators(image_ar, 100):
-				num_frames += len(chunk)
-				add_images(chunk, filename+str(num_frames)+fp_out, prev_files, num_frames)
 
-				#save the filename so we can remove it later once the next one gets created
-				prev_files.insert(0, filename+str(num_frames)+fp_out)
-				lastFile = filename+str(num_frames)+fp_out
-				if (num_frames > 3899): # it looks like it crashes above 3899
-					break
+			width = 1920
+			height = 1080
+			# choose codec according to format needed
+			fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+			video=cv2.VideoWriter('video.avi', fourcc, 1,(width,height))
 
-			# remove the unnecessary intermediary file
-			if (len(prev_files) > 0):
-				os.remove(prev_files.pop())
+			for j in range(0,5):
+				img = cv2.imread(str(i)+'.png')
+				video.write(img)
+
+			cv2.destroyAllWindows()
+			video.release()
+
+
+
+			# # use a generator to split it into chunks and add the images
+			# for chunk in chunk_using_generators(image_ar, 100):
+			# 	num_frames += len(chunk)
+			# 	add_images(chunk, filename+str(num_frames)+fp_out, prev_files, num_frames)
+			#
+			# 	#save the filename so we can remove it later once the next one gets created
+			# 	prev_files.insert(0, filename+str(num_frames)+fp_out)
+			# 	lastFile = filename+str(num_frames)+fp_out
+			# 	if (num_frames > 3899): # it looks like it crashes above 3899
+			# 		break
+			# 
+			# # remove the unnecessary intermediary file
+			# if (len(prev_files) > 0):
+			# 	os.remove(prev_files.pop())
 
 			print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
 
