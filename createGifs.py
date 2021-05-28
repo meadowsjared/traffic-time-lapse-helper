@@ -66,7 +66,7 @@ for item in directory_contents:
 				#save the filename so we can remove it later once the next one gets created
 				prev_files.insert(0, filename+str(num_frames)+fp_out)
 				lastFile = filename+str(num_frames)+fp_out
-				if (num_frames > 3699): # it looks like it crashes above 3899
+				if (num_frames > 3699): # it looks like it crashes above 3700
 					break
 
 			# remove the unnecessary intermediary file
