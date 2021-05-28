@@ -1,53 +1,42 @@
-import glob, os, re, time, cv2
+import glob, os, re, time
 from PIL import Image
 
 # filepaths
 fp_in = "*.png"
-fp_out = ".np4"
+fp_out = ".gif"
 
 out_dir = "output"
 video_dir = "videos/"
 time_format = "%-I.%M.%S %p"
 
+#creates a gif, given an array of file paths to add
+def add_images(image_ar, filename, prev_files, num_frames):
+	print('adding images... ', num_frames - len(image_ar) + 1, 'to', num_frames, '(' + str(len(image_ar)) + ' frames)')
+	item_start_time = time.time()
+	if (len(prev_files) == 0):
+		# if oldname == '':
+		img, *imgs = [Image.open(f) for f in image_ar]
+	else:
+		img = Image.open(prev_files[0])
+		imgs = [Image.open(f) for f in image_ar]
+
+	if (len(prev_files) > 1):
+		# remove the file before the last
+		os.remove(prev_files.pop())
+
+	# https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#gif
+	img.save(fp=filename, format='GIF', append_images=imgs, save_all=True, duration=150, loop=0)
+
+	chunk_time = time.time() - item_start_time
+	if (chunk_time > 60):
+		print(len(image_ar),'frames saved to', filename, 'in', round((chunk_time)/60, 2), 'minutes')
+	else:
+		print(len(image_ar),'frames saved to', filename, 'in', round(chunk_time), 'seconds')
+
 # returns an array of chunks of the array of size n
 def chunk_using_generators(image_ar, n):
 	for i in range(0, len(image_ar), n):
 		yield image_ar[i:i + n]
-
-#creates a mp4 file, given an array of image file paths to add
-def create_video(image_ar, width, height, vid_filename):
-	print('adding images... ', len(image_ar), 'frames at ('+str(width)+'x'+str(height)+')')
-	item_start_time = time.time()
-
-	# choose codec according to format needed
-	# fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-	fourcc = cv2.VideoWriter_fourcc('F','M','P','4')
-	video = cv2.VideoWriter(vid_filename, fourcc, 20.0, (width,height))
-
-	num_frames = 0
-	for file_path in image_ar:
-		num_frames += 1
-		img = cv2.imread(file_path)
-		print(file_path)
-		video.write(img)
-		if (num_frames > 5):
-			break
-
-	video.release()
-	cv2.destroyAllWindows()
-
-	file_exists = os.path.isfile(vid_filename)
-	if (file_exists):
-		print('file_exists = true')
-	else:
-		print('file_exists = false')
-
-	chunk_time = time.time() - item_start_time
-	if (chunk_time > 60):
-		print(len(image_ar),'frames saved to', vid_filename, 'in', round((chunk_time)/60, 2), 'minutes')
-	else:
-		print(len(image_ar),'frames saved to', vid_filename, 'in', round(chunk_time), 'seconds')
-
 
 #used to get total run time at the end
 main_start_time = time.time()
@@ -67,11 +56,22 @@ for item in directory_contents:
 			site_name = re.sub("/$", "", re.sub("^output/", "", item))
 			print('processing '+site_name+' with', len(image_ar), 'total frames')
 
-			if len(image_ar) > 0:
-				im = Image.open(image_ar[0])
-				width, height = im.size
-				im.close()
-				create_video(image_ar, width, height, filename+'_'+str(len(image_ar))+fp_out)
+			num_frames = 0
+			prev_files = []
+			# use a generator to split it into chunks and add the images
+			for chunk in chunk_using_generators(image_ar, 100):
+				num_frames += len(chunk)
+				add_images(chunk, filename+str(num_frames)+fp_out, prev_files, num_frames)
+
+				#save the filename so we can remove it later once the next one gets created
+				prev_files.insert(0, filename+str(num_frames)+fp_out)
+				lastFile = filename+str(num_frames)+fp_out
+				if (num_frames > 3699): # it looks like it crashes above 3700
+					break
+
+			# remove the unnecessary intermediary file
+			if (len(prev_files) > 0):
+				os.remove(prev_files.pop())
 
 			print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
 
