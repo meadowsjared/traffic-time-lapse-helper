@@ -15,6 +15,15 @@ local.properties
 .classpath
 .settings/
 .loadpath
+/node_modules
+/__pycache__
+/screenshots/*.png
+/screenshots/*/
+/temp/*.png
+/temp/*/
+/output/*.png
+/output/*/
+/videos/*.gif
 
 # External tool builders
 .externalToolBuilders/
