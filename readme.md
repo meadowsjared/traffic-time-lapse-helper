@@ -20,7 +20,7 @@ lastly after you have the output, run `python3 createGifs.py` to create gifs and
 
 note: to run it in a way that keeps it running after you logout, use nohup like this:
 
-`nohup python3 main.py &`
+`nohup python3 -u main.py &`
 
 to stop your program later, you can use:
 
