@@ -1,4 +1,4 @@
-import glob, os, re, time, cv2
+import glob, os, re, time, threading, cv2
 from PIL import Image
 
 # filepaths
@@ -21,28 +21,39 @@ def create_video(image_ar, width, height, vid_filename, fp_out):
 
 	# choose codec according to format needed
 	# you can set fourcc = -1 used to find the supported codecs on your system
+	threads = []
 	for fps in [1, 5, 10, 20, 60, 120]:
-		fourcc = cv2.VideoWriter_fourcc(*'mp4v') #mp4
-		video = cv2.VideoWriter(vid_filename + '_' + str(fps) + 'fps' + fp_out, fourcc, fps, (width, height))
-		num_frames = 0
+		t = threading.Thread(target=create_video_fps, args=(vid_filename, fps, fp_out, width, height))
+		threads.append(t)
+		t.start()
 
-		for file_path in image_ar:
-			num_frames += 1
-			if (num_frames % 20 == 0):
-				print(fps, num_frames)
-
-			video.write(cv2.imread(file_path))
-			if (num_frames > 500):
-				break
-
-		video.release()
-		cv2.destroyAllWindows()
+	# wait for them to finish
+	for t in threads:
+		t.join()
 
 	chunk_time = time.time() - item_start_time
 	if (chunk_time > 60):
 		print(len(image_ar),'frames saved to', vid_filename, 'in', round((chunk_time)/60, 2), 'minutes')
 	else:
 		print(len(image_ar),'frames saved to', vid_filename, 'in', round(chunk_time), 'seconds')
+
+def create_video_fps(vid_filename, fps, fp_out, width, height):
+	fourcc = cv2.VideoWriter_fourcc(*'mp4v') #mp4
+	video = cv2.VideoWriter(vid_filename+'_'+str(fps)+'fps'+fp_out, fourcc, fps, (width, height))
+	num_frames = 0
+
+	for file_path in image_ar:
+		num_frames += 1
+		if (num_frames % 20 == 0):
+			print(fps, num_frames)
+
+		video.write(cv2.imread(file_path))
+		if (num_frames > 500):
+			break
+
+	video.release()
+	cv2.destroyAllWindows()
+
 
 #used to get total run time at the end
 main_start_time = time.time()
