@@ -45,11 +45,8 @@ def create_video_fps(vid_filename, fps, fp_out, width, height):
 	for file_path in image_ar:
 		num_frames += 1
 		if (num_frames % 20 == 0):
-			print(fps, num_frames)
-
+			print(fps, 'fps, frame', num_frames)
 		video.write(cv2.imread(file_path))
-		if (num_frames > 500):
-			break
 
 	video.release()
 	cv2.destroyAllWindows()
@@ -64,23 +61,22 @@ directory_contents = glob.glob(out_dir+"/*/") # os.listdir(out_dir)
 # Filter for directories
 for item in directory_contents:
 	if os.path.isdir(item):
-			location_start_time = time.time()
-			filename = video_dir+re.sub("/$", "", re.sub("^output/", "", item)) #name it the same as the directory
-			if os.path.exists(filename):
-				# delete the old file to make room for it
-				os.remove(filename)
-			image_ar = sorted(glob.glob(item+fp_in))
-			site_name = re.sub("/$", "", re.sub("^output/", "", item))
-			print('processing '+site_name+' with', len(image_ar), 'total frames')
+		location_start_time = time.time()
+		filename = video_dir+re.sub("/$", "", re.sub("^output/", "", item)) #name it the same as the directory
+		if os.path.exists(filename):
+			# delete the old file to make room for it
+			os.remove(filename)
+		image_ar = sorted(glob.glob(item+fp_in))
+		site_name = re.sub("/$", "", re.sub("^output/", "", item))
+		print('processing '+site_name+' with', len(image_ar), 'total frames')
 
-			if len(image_ar) > 0:
-				im = Image.open(image_ar[0])
-				width, height = im.size
-				im.close()
-				create_video(image_ar, width, height, filename+'_'+str(len(image_ar)),fp_out)
-				break
+		if len(image_ar) > 0:
+			im = Image.open(image_ar[0])
+			width, height = im.size
+			im.close()
+			create_video(image_ar, width, height, filename+'_'+str(len(image_ar)),fp_out)
 
-			print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
+		print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
 
 total_time = round(time.time() - main_start_time)
 if (total_time > 60):
