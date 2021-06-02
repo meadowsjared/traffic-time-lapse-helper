@@ -17,14 +17,10 @@ local.properties
 .loadpath
 /node_modules
 /__pycache__
-/screenshots/*.png
-/screenshots/*/
-/temp/*.png
-/temp/*/
-/output/*.png
-/output/*/
-/videos/*.gif
-/videos/*.mp4
+/screenshots/**/*.png
+/output/**/*.png
+/videos/**/*.gif
+/videos/**/*.mp4
 nohup.out
 
 # External tool builders
