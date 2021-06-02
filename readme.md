@@ -16,8 +16,8 @@ The URL to take a screenshot of, output directory, and interval between screensh
 
 Once these variables are set, run the script and it will begin placing formatted 1920x1080 frames in **/output**. Original frames are kept in **/screenshots**.
 
-lastly after you have the output, run `python3 createGifs.py` to create gifs and throw them in the **/videos** folder.
-or alternatively:
+lastly after you have the output, run `python3 createGifs.py` to create gifs and throw them in the **/videos** folder.  
+or alternatively:  
 make videos instead, by running `python3 createVideos.py` to create mp4 files and throw them in the **/videos** folder.
 
 note: to run it in a way that keeps it running after you logout, use nohup like this:
