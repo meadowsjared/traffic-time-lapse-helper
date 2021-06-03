@@ -10,7 +10,7 @@ A script that makes creating time lapses of traffic in Google Maps easy.
 
 The script runs on [**Python 3.9**](http://www.python.org/getit/) and [**Pillow**](https://pillow.readthedocs.io/en/stable/installation.html) (`pip3 install Pillow`) and requires [**NodeJs**](https://nodejs.org/en/download/) and [**Puppeteer**](https://developers.google.com/web/tools/puppeteer).  
 ***Note:*** *as long as you have Python3, and nodejs, you can just run `npm install` to install the puppeteer dependency*  
-It also can require OpenCV (`pip3 install opencv-python`), but only if you want to create videos instead of Gifs.
+It also can require **OpenCV** (`pip3 install opencv-python`), but only if you want to create videos instead of Gifs.
 
 ## Usage
 
