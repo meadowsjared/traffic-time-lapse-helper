@@ -20,7 +20,7 @@ def create_video(image_ar, width, height, site_name, vid_filename, fp_out):
 	item_start_time = time.time()
 
 	threads = []
-	for fps in [20]: # <= if you want different FPS versions rendered, add them here
+	for fps in [20]: # <= if you want different FPS versions rendered, add them here like [1, 5, 10, 20, 60, 120]
 		t = threading.Thread(target=create_video_fps, args=(site_name, vid_filename, fps, fp_out, width, height))
 		threads.append(t)
 		t.start()
@@ -68,17 +68,18 @@ for item in directory_contents:
 	if os.path.isdir(item):
 		location_start_time = time.time()
 		site_name = re.sub("/$", "", re.sub("^output/", "", item))
-		filename = video_dir+site_name #name it the same as the directory
-		image_ar = sorted(glob.glob(item+fp_in))
-		print('processing '+site_name+' with', len(image_ar), 'total frames')
+		if site_name == 'Shafter':
+			filename = video_dir+site_name #name it the same as the directory
+			image_ar = sorted(glob.glob(item+fp_in))
+			print('processing '+site_name+' with', len(image_ar), 'total frames')
 
-		if len(image_ar) > 0:
-			im = Image.open(image_ar[0])
-			width, height = im.size
-			im.close()
-			tr = threading.Thread(target=create_video, args=(image_ar, width, height, site_name, filename+'_'+str(len(image_ar)),fp_out))
-			threads_main.append(tr)
-			tr.start()
+			if len(image_ar) > 0:
+				im = Image.open(image_ar[0])
+				width, height = im.size
+				im.close()
+				tr = threading.Thread(target=create_video, args=(image_ar, width, height, site_name, filename+'_'+str(len(image_ar)),fp_out))
+				threads_main.append(tr)
+				tr.start()
 		# print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
 
 # wait for them to finish
