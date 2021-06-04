@@ -20,7 +20,7 @@ def create_video(image_ar, width, height, site_name, vid_filename, fp_out):
 	item_start_time = time.time()
 
 	threads = []
-	for fps in [20]: # <= if you want different FPS versions rendered, add them here
+	for fps in [20]: # <= if you want different FPS versions rendered, add them here like [1, 5, 10, 20, 60, 120]
 		t = threading.Thread(target=create_video_fps, args=(site_name, vid_filename, fps, fp_out, width, height))
 		threads.append(t)
 		t.start()
