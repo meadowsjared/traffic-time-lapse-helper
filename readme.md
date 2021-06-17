@@ -25,7 +25,7 @@ note: to run it in a way that keeps it running after you logout:
 >**use nohup like this:**
 ><pre>nohup python3 -u main.py &</pre>
 >to stop your program later, you can use:
-><pre>ps aux | head -n 1 && ps aux | grep -v grep | grep python3\ main.py</pre>
+><pre>ps aux | head -n 1 && ps aux | grep -v grep | grep python3\ -u\ main.py</pre>
 >to get the PID, then use the PID with the <pre>kill <b>&lt;_yourPID_&gt;<b></pre>
 >command to kill it using it's PID
 
