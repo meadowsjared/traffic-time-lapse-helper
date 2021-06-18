@@ -22,6 +22,7 @@ local.properties
 /videos/**/*.gif
 /videos/**/*.mp4
 nohup.out
+ImageOverlay_RS.png
 
 # External tool builders
 .externalToolBuilders/
