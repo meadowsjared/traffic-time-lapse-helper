@@ -47,13 +47,14 @@ directory_contents = glob.glob(out_dir+"/*/") # os.listdir(out_dir)
 # Filter for directories
 for item in directory_contents:
 	if os.path.isdir(item):
+			site_name = re.sub("/$", "", re.sub("^output/", "", item))
+
 			location_start_time = time.time()
 			filename = video_dir+re.sub("/$", "", re.sub("^output/", "", item)) #name it the same as the directory
 			if os.path.exists(filename):
 				# delete the old file to make room for it
 				os.remove(filename)
 			image_ar = sorted(glob.glob(item+fp_in))
-			site_name = re.sub("/$", "", re.sub("^output/", "", item))
 			print('processing '+site_name+' with', len(image_ar), 'total frames')
 
 			num_frames = 0
@@ -70,7 +71,7 @@ for item in directory_contents:
 					break
 
 			# remove the unnecessary intermediary file
-			if (len(prev_files) > 0):
+			if (len(prev_files) > 1):
 				os.remove(prev_files.pop())
 
 			print(site_name, 'processed in ', round(time.time() - location_start_time), 'seconds\n')
