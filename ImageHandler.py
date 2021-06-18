@@ -22,7 +22,7 @@ class ImageHandler:
 		draw.text((12, 12),image_label,(0,0,0),font=font)
 		w, h = im.size
 		# add an image overlay to the image
-		logo = Image.open("ImageOverlay_RS.png")
+		logo = Image.open("ImageOverlay.png")
 		im.paste(logo, (w-352,10), logo)
 		out_dir = os.path.dirname(out_file)
 		# create directory if it doesn't exist
