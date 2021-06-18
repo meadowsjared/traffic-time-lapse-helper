@@ -8,26 +8,14 @@ output_dir = 'output'
 width = 1920
 height = 1080
 image_type = 'png'
-interval = 1
+interval = 15
 labels = [
-		'Bakersfield',
-		'SE Bakersfield',
-		'Landco', 
-		'Santa Fe Way', 
-		'Shafter', 
-		'Morning Drive',
-		'Baker',
-		'Olive',
+		'Atlanta',
+		'Chicago',
 	]
 sites = [
-		'https://www.google.com/maps/@35.385853,-119.0278613,14z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.3615101,-118.9396787,15z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.3833217,-119.06114,17z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.4196532,-119.1724834,15z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.5027193,-119.2747966,17z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.3592089,-118.9138008,17z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.3736062,-118.9963834,16.75z/data=!5m1!1e1',
-		'https://www.google.com/maps/@35.4127418,-119.0493261,17.54z/data=!5m1!1e1',
+		'https://www.google.com/maps/@33.766207,-84.371861,11z/data=!5m1!1e1',
+		'https://www.google.com/maps/@41.8333925,-88.0121478,10z/data=!5m1!1e1',
 	]
 
 
