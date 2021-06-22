@@ -8,6 +8,16 @@ output_dir = 'output'
 width = 1920
 height = 1080
 image_type = 'png'
+# interval = 15
+# labels = [
+# 		'Atlanta',
+# 		'Chicago',
+# 	]
+# sites = [
+# 		'https://www.google.com/maps/@33.766207,-84.371861,11z/data=!5m1!1e1',
+# 		'https://www.google.com/maps/@41.8333925,-88.0121478,10z/data=!5m1!1e1',
+# 	]
+# image_overlay = "ImageOverlay.png"
 interval = 1
 labels = [
 		'Bakersfield',
@@ -29,6 +39,7 @@ sites = [
 		'https://www.google.com/maps/@35.3736062,-118.9963834,16.75z/data=!5m1!1e1',
 		'https://www.google.com/maps/@35.4127418,-119.0493261,17.54z/data=!5m1!1e1',
 	]
+image_overlay = "ImageOverlay_RS.png"
 
 
 ################################################################################
@@ -49,7 +60,7 @@ def process_site(site, i, label='', process=True):
 	# #used to read the results from imageFromUrl.js (useful for troubleshooting)
 	# ret_obj = json.loads(output)
 	# print('ret_obj', ret_obj['consoleMessages'])
-	ih.process_image(label, image_path, out_file)
+	ih.process_image(label, image_path, out_file, image_overlay)
 
 ################################################################################
 # program entrypoint

@@ -6,7 +6,7 @@ class ImageHandler:
 
 	##############################################################################
 	# processes a frame, including color analysis and annotation
-	def process_image(self, label, in_file, out_file):
+	def process_image(self, label, in_file, out_file, image_overlay = None):
 		print('processing %s...' % in_file)
 
 		im = Image.open(in_file)
@@ -20,10 +20,12 @@ class ImageHandler:
 		font = ImageFont.truetype("arial.ttf", 48)
 		draw = ImageDraw.Draw(im)
 		draw.text((12, 12),image_label,(0,0,0),font=font)
-		w, h = im.size
 		# add an image overlay to the image
-		logo = Image.open("ImageOverlay_RS.png")
-		im.paste(logo, (w-352,10), logo)
+		if image_overlay is not None:
+			w, h = im.size
+			logo = Image.open(image_overlay)
+			im.paste(logo, (w-352,10), logo)
+
 		out_dir = os.path.dirname(out_file)
 		# create directory if it doesn't exist
 		if (not os.path.isdir(out_dir)):
