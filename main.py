@@ -17,6 +17,7 @@ sites = [
 		'https://www.google.com/maps/@33.766207,-84.371861,11z/data=!5m1!1e1',
 		'https://www.google.com/maps/@41.8333925,-88.0121478,10z/data=!5m1!1e1',
 	]
+image_overlay = "ImageOverlay.png"
 
 
 ################################################################################
@@ -37,7 +38,7 @@ def process_site(site, i, label='', process=True):
 	# #used to read the results from imageFromUrl.js (useful for troubleshooting)
 	# ret_obj = json.loads(output)
 	# print('ret_obj', ret_obj['consoleMessages'])
-	ih.process_image(label, image_path, out_file)
+	ih.process_image(label, image_path, out_file, image_overlay)
 
 ################################################################################
 # program entrypoint

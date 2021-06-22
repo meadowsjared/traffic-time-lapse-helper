@@ -32,4 +32,4 @@ note: to run it in a way that keeps it running after you logout:
 
 ## New Features
   * GIF creation added
-  * Video create added
+  * Video creation added
